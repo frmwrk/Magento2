@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcgstz@gmail.com>
 
@@ -9,19 +9,18 @@ ENV XDEBUG_PORT 9000
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	software-properties-common \
-	python-software-properties \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libfreetype6-dev \
 	libicu-dev \
-  	libssl-dev \
+  libssl-dev \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
-	libpng12-dev \
 	libedit-dev \
 	libedit2 \
 	libxslt1-dev \
 	apt-utils \
+	gnupg \
 	redis-tools \
 	mysql-client \
 	git \
@@ -73,6 +72,14 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 
 RUN	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 RUN composer global require hirak/prestissimo
+
+# Install Code Sniffer
+
+RUN git clone https://github.com/magento/marketplace-eqp.git ~/.composer/vendor/magento/marketplace-eqp
+RUN cd ~/.composer/vendor/magento/marketplace-eqp && composer install
+RUN ln -s ~/.composer/vendor/magento/marketplace-eqp/vendor/bin/phpcs /usr/local/bin;
+
+ENV PATH="/var/www/.composer/vendor/bin/:${PATH}"
 
 # Install XDebug
 

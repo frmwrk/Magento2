@@ -2,7 +2,7 @@
 
 #  Magento 2 Docker to Development
 
-### Apache 2.4 + PHP 7.0 + OPCache + MariaDB + N98 Magerun 2 + XDebug + Redis
+### Apache 2.4 + PHP 7.1 + OPCache + MariaDB + N98 Magerun 2 + XDebug + Redis
 
 [![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
 [![Docker Build](https://img.shields.io/docker/build/rafaelcgstz/magento2.svg)](https://hub.docker.com/r/rafaelcgstz/magento2/)
@@ -69,6 +69,18 @@ Enjoy your new panels!
 | `./grunt`  | Use Grunt specifically in your theme or completely, it'll do the deploy and the watcher.  | `./grunt luma` |
 | `./xdebug`  |  Enable / Disable the XDebug | |
 | `./composer`  |  Use Composer commands | `./composer update` |
+
+### Elasticsearch 
+
+To use elastic search you can use this command below:
+
+`$ docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up`
+
+or to run in the background using detached mode
+
+`$ docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up -d`
+
+**Elasticsearch:** http://localhost:9200
 
 ### License
 
